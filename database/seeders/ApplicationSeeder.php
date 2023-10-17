@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Application;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ApplicationSeeder extends Seeder
@@ -12,6 +13,12 @@ class ApplicationSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+//        Application::create([
+//            'user_id' => rand(1,User::all()->count()),
+//            'subject' => 'alfa',
+//            'message' => 'ssss',
+//            'file_url' => 'sass'
+//        ]);
+        Application::factory()->count(20)->create();
     }
 }

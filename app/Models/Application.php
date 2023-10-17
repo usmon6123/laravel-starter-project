@@ -9,11 +9,17 @@ class Application extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','subject','message','file_url'];
+    protected $fillable = ['user_id', 'subject', 'message', 'file_url'];
 
-    protected $table = ['applications'];
+    protected $casts = [
+        'user_id' => 'integer',
+        'subject' => 'string',
+        'message' => 'string',
+        'file_url' => 'string'
+    ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
