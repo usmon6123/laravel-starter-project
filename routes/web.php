@@ -1,27 +1,10 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/', function () {
-//    $users = \App\Models\User::all()->where('role_id',['<>'],['1']);
-    return redirect('dashboard');
-})->middleware('auth');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,4 +12,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [MainController::class, 'main'])->name('main');
+    Route::get('/dashboard', [MainController::class, 'dashboard'])->name('dashboard');
+    Route::resource('applications', ApplicationController::class);
+});
+
+
+
+
+
+require __DIR__ . '/auth.php';
+
+
+
