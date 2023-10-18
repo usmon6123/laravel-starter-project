@@ -17,7 +17,7 @@ class ApplicationFactory extends Factory
             'user_id' => rand(1,User::all()->count()),
             'subject' => $this->faker->sentence,
             'message' => $this->faker->sentence,
-            'file_url' => $this->faker->url
+            'file_url' => null
         ];
 
 
