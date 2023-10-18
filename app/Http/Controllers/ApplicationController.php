@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
+use App\Mail\ApplicationCreated;
 use App\Models\Application;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicationController extends Controller
 {
+
+    public function index(){
+        echo 'Index';
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -14,6 +22,7 @@ class ApplicationController extends Controller
             'message' => 'required',
             'file' => 'file|mimes:jpg,png,pdf|nullable'
         ]);
+
         if ($request->hasFile('file')) {
             $name = $request->file('file')->getClientOriginalName();
             $path = $request->file('file')->storeAs('files', time().$name, 'public');
@@ -25,7 +34,13 @@ class ApplicationController extends Controller
             'message' => $request->message,
             'file_url' => $path ?? null
         ]);
+
+        //LOGGA EMAIL JO'NATADI queue da
+        dispatch(new SendEmailJob($app));
+
+
+
 //        dd($app);
-        return redirect()->back();
+        return redirect('dashboard');
     }
 }

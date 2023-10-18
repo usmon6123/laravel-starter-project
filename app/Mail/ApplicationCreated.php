@@ -2,8 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\Application;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -13,41 +13,24 @@ class ApplicationCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $application;
+
+    public function __construct(Application $application)
     {
-        //
+        $this->application = $application;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+
+    public function build()
     {
-        return new Envelope(
-            subject: 'Application Created',
-        );
+        $mail =  $this->from('example@company.com', 'Example tester')
+            ->subject('Application Created')
+            ->view('emails.application-created');
+
+        if (!(is_null($this->application->file_url) || $this->application->file_url == '')){
+            $mail = $this->attachFromStorageDisk('public', $this->application->file_url);
+        }
+        return $mail;
     }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
-    }
 }
