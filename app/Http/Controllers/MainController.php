@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Application;
 
 class MainController extends Controller
@@ -15,7 +16,6 @@ class MainController extends Controller
 
 
         return view('dashboard')->with([
-            'test'=> 'alfa',
             'applications' => Application::orderByDesc('updated_at')->paginate(10),
         ]);
 

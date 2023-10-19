@@ -33,10 +33,31 @@
                 @endif
             </div>
         </div>
-        <div>
+        <div class="flex justify-between mt-2 ">
             <div class="flex items-center justify-between text-slate-500">
                 {{$email}}
             </div>
+            @if((is_null($answer)||$answer==''))
+                <a href="{{ route('answer.get-form',['application'=>$app_id]) }}">
+                    <button
+                        class="py-2 px-4 shadow-md no-underline rounded-full bg-green-400 text-black font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-black focus:outline-none active:shadow-none mr-2">
+                        Javob berish
+                    </button>
+                </a>
+            @elseif(!(is_null($answer)||$answer==''))
+                <a href="{{ route('answer.get-form',['application'=>$app_id]) }}">
+                    <button
+                        class="py-2 px-4 shadow-md no-underline rounded-full bg-green-400 text-black font-sans font-semibold text-sm border-blue btn-primary hover:text-white hover:bg-black focus:outline-none active:shadow-none mr-2">
+                        edit
+                    </button>
+                </a>
         </div>
+        <div>
+
+            <h6 class="text-blue-500">answer:</h6>
+            <p>{{$answer}}</p>
+            @endif
+        </div>
+
     </div>
 </div>

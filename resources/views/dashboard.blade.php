@@ -13,9 +13,10 @@
                     @if(auth()->user()->role->name == 'manager')
                         <div class="text-blue-500 font-bold text-2xl">Received Applications</div>
                         @foreach($applications as $application)
-                            {{--                            @dd($application);--}}
-
+                            @php $resAnswer = \Illuminate\Support\Facades\DB::table('answers')->where('application_id',$application->id)->first()->body??'';
+                                @endphp
                             <x-extra.dashboard_manager>
+                                <x-slot:app_id>{{$application->id}}</x-slot:app_id>
                                 <x-slot:name>{{$application->user->name}}</x-slot:name>
                                 <x-slot:id>{{$application->user->id}}</x-slot:id>
                                 <x-slot:date>{{$application->updated_at}}</x-slot:date>
@@ -23,6 +24,8 @@
                                 <x-slot:message>{{$application->message}}</x-slot:message>
                                 <x-slot:email>{{$application->user->email}}</x-slot:email>
                                 <x-slot:fileUrl>{{$application->file_url}}</x-slot:fileUrl>
+                                <x-slot:application>{{$application}}</x-slot:application>
+                                <x-slot:answer>{{$resAnswer}}</x-slot:answer>
                             </x-extra.dashboard_manager>
                         @endforeach
 

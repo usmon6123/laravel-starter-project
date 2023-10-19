@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreApplicationRequest;
 use App\Jobs\SendEmailJob;
 use App\Models\Application;
 use Illuminate\Http\Request;
@@ -15,16 +16,10 @@ class ApplicationController extends Controller
         echo 'Index';
     }
 
-    public function store(Request $request)
+    public function store(StoreApplicationRequest $request)
     {
-
+//        dd($request);
         if ($this->checkDate()) return redirect()->back()->with('error','You can only 1 application a day');
-
-            $request->validate([
-                'subject' => 'required|max:255',
-                'message' => 'required',
-                'file' => 'file|mimes:jpg,png,pdf|nullable'
-            ]);
 
         if ($request->hasFile('file')) {
             $name = $request->file('file')->getClientOriginalName();

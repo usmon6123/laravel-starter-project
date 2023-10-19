@@ -11,15 +11,16 @@ class Application extends Model
 
     protected $fillable = ['user_id', 'subject', 'message', 'file_url'];
 
-    protected $casts = [
-        'user_id' => 'integer',
-        'subject' => 'string',
-        'message' => 'string',
-        'file_url' => 'string'
-    ];
+//    protected $casts = [
+//        'user_id' => 'integer',
+//        'subject' => 'string',
+//        'message' => 'string',
+//        'file_url' => 'string'
+//    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+    public function answer(){return $this->hasOne(Answer::class);}
 }
