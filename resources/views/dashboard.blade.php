@@ -13,7 +13,7 @@
                     @if(auth()->user()->role->name == 'manager')
                         <div class="text-blue-500 font-bold text-2xl">Received Applications</div>
                         @foreach($applications as $application)
-{{--                            @dd($application);--}}
+                            {{--                            @dd($application);--}}
 
                             <x-extra.dashboard_manager>
                                 <x-slot:name>{{$application->user->name}}</x-slot:name>
@@ -38,6 +38,34 @@
                                     <form action="{{route('applications.store')}}" method="POST"
                                           enctype="multipart/form-data">
                                         @csrf
+                                        @if(session()->has('error'))
+                                            <div class="flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700"
+                                                 role="alert">
+                                                <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                                <div>
+                                                    <span class="font-medium">{{session()->get('error')}}</span>
+                                                </div>
+                                            </div>
+                                        @elseif(session()->has('success'))
+                                            <div class="flex bg-green-100 rounded-lg p-4 mb-4 text-sm text-green-700"
+                                                 role="alert">
+                                                <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                                          clip-rule="evenodd"></path>
+                                                </svg>
+                                                <div>
+                                                    <span class="font-medium">{{session()->get('success')}}</span></div>
+                                            </div>
+                                        @endif
+                                        @php session()->pull('error','success') @endphp
+
                                         <h2 class="text-2xl font-bold ">Submit your application</h2>
                                         <hr class="my-6">
                                         <label class="uppercase text-sm font-bold opacity-70">Subject</label>
