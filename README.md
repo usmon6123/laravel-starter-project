@@ -8,14 +8,16 @@
 </p>
 
 ## Proyekt haqida
-manager va client o'rtasida savol javoblar qilish uchun test proekt bu.
+manager va client o'rtasida savol javoblar qilish uchun test proyekt bu.\
+client bir kunda bir marta ariza jo'natishi mumkin va u barcha arizalarini va ariza javoblarini ko'ra oladi.\
+manager barcha clientlardan kelgan arizalarga javob berishi va edity qilishi mumkin javobini.\
 Laravelni o'rganish davrida qilingan loyiha
 
 ## O'rganganlarim
 
 - security(Laravel Breeze)
 - Authentication(create Role)
-- Authentication(
+- Authorization(
   grant permission to the role)
 - Send email to Laravel.log
 - Database connection
