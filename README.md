@@ -11,7 +11,7 @@
 manager va client o'rtasida savol javoblar qilish uchun test proyekt bu.\
 client bir kunda bir marta ariza jo'natishi mumkin va u barcha arizalarini va ariza javoblarini ko'ra oladi.\
 manager barcha clientlardan kelgan arizalarga javob berishi va edity qilishi mumkin javobini.\
-Laravelni o'rganish davrida qilingan loyiha
+Bu loyiha Laravelni o'rganish davrida qilindi.
 
 ## O'rganganlarim
 
@@ -43,7 +43,6 @@ npm run dev
 php artisan queue:work
 ```
 ### .env
-* DB_HOST=mysql
 * MAIL_MAILER=log
 ### Foydalanuvchilar
 proyektga kirganda login page ochiladi\
