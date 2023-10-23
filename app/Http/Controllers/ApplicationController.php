@@ -13,7 +13,9 @@ class ApplicationController extends Controller
 
     public function index()
     {
-        echo 'Index';
+        $user_id = auth()->user()->id;
+        $applications = Application::where('user_id',$user_id)->orderByDesc('updated_at')->paginate(15);
+        return view('application.index')->with('applications', $applications);
     }
 
     public function store(StoreApplicationRequest $request)
